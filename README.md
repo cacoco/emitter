@@ -1,6 +1,6 @@
 # emitter
 
-Writes random strings to multiple files opening up one thread per file to written to and continously writing data until exited.
+Writes random strings to multiple files opening up one thread per file to be appended to and continously writing data until exited. Currently requires the files to exist *A priori*.
 
 ## Usage
 
