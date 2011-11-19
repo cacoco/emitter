@@ -1,6 +1,6 @@
 # emitter
 
-Writes random strings to multiple files opening up one thread per file to be appended to and continously writing data until exited. Currently requires the files to exist *A priori*.
+Writes random strings to multiple files opening up one thread per file to be appended to and continously writing data until exited. If the files do not exist, they will be created. Passing a delay is optional. If not passed the default of 500 millis will be used.
 
 ## Usage
 
@@ -10,5 +10,5 @@ Writes random strings to multiple files opening up one thread per file to be app
 ```lein clean, compile
 ```
 
-```lein run -m emitter.core --files /tmp/file1,/tmp/file2 --delay 500
+```lein run -m emitter.core --files /tmp/file1,/tmp/file2 [--delay 500]
 ```
