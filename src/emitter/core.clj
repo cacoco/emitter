@@ -19,7 +19,7 @@
   (let [chars (apply vector "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
         num-chars (count chars)]
     (apply str
-      (take 128 (repeatedly #(get chars (rand-int num-chars)))))))
+      (take 80 (repeatedly #(get chars (rand-int num-chars)))))))
 
 (defn write [file delay]
     (loop []
