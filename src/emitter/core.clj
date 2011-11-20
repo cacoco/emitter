@@ -12,6 +12,9 @@
   (dotimes [t thread-count]
     (.submit *pool* #(dotimes [_ exec-count] (f)))))
 
+(defn log [data]
+  (prn (merge {:ns "emitter"} data)))
+
 (defn rand-id []
   (let [chars (apply vector "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
         num-chars (count chars)]
@@ -38,5 +41,6 @@
       "Usage: --files=file1,file2 --delay=500"
       [[files "where to emit"]
        [delay "default delay" "500"]]
+    (log {:files files :delay delay})
     (produce-output files delay))
-    (prn "Usage: --files=file1,file2 --delay=500")))
+    (prn "Usage: --files=file1,file2 [--delay=500]")))

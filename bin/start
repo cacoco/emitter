@@ -1,0 +1,13 @@
+#!/bin/bash
+
+files=$1
+delay=${2:-500}
+if [ $files ]; then
+    echo "Downloading dependencies..."
+    lein deps
+    lein clean, compile
+    echo "Starting emitter..."
+    lein run -m emitter.core --files $files --delay $delay
+else
+    echo "Usage: file1,file2 [delay]"
+fi
