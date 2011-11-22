@@ -6,6 +6,8 @@ Writes random strings to multiple files opening up one thread per file to be app
 
 ## Usage
 
+You will first need [Leiningen](https://github.com/technomancy/leiningen) installed.
+
 Run via start script with required comma-separated list of files at which to emit and optional delay parameter:
 
 ```./bin/start /tmp/log-1.txt,/tmp/log-2.txt 200
