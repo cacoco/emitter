@@ -1,4 +1,6 @@
 (ns emitter.core
+  (:use [clj-time.core :only [now]]
+        [clj-time.format :as format])
   (:require [clojure.contrib.command-line :as ccl])
   (:gen-class))
 
@@ -15,15 +17,25 @@
 (defn log [data]
   (prn (merge {:ns "emitter"} data)))
 
-(defn rand-id []
+(defn ip []
+  (apply str (interpose "." (repeatedly 4 #(rand-int 256)))))
+
+(def log-formatter (format/formatter "dd/MMM/yyyy:HH:mm:ss Z"))
+(defn curr-time []
+  (apply str ["[" (unparse log-formatter (now)) "]"]))
+
+(def actions ["POST" "PUT" "DELETE" "GET"])
+(def codes [200 400 401 403 404 500])
+
+(defn rand-id [n]
   (let [chars (apply vector "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
         num-chars (count chars)]
     (apply str
-      (take 80 (repeatedly #(get chars (rand-int num-chars)))))))
+      (take n (repeatedly #(get chars (rand-int num-chars)))))))
 
 (defn write [file delay]
     (loop []
-      (spit file (str (rand-id) "\n") :append true)
+      (spit file (str (ip) " - " (rand-id 5) " " (curr-time) " \"" (rand-nth actions) " /" (rand-id 40) " HTTP/1.1 " (rand-nth codes) " " (rand-int 1024) "\n") :append true)
       (Thread/sleep (Long/parseLong delay))
       (recur)))
 
